@@ -1,5 +1,6 @@
 package com.example.fianchettochesstournamentmanagerserverjava.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -10,6 +11,26 @@ public class User {
 	private String password;
 	
 	private List<Tournament> tournamentList;
+	
+	public User() {
+		
+	}
+	
+	public User(String id, String name, String email, String password) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.tournamentList = new ArrayList<>();
+	}
+	
+	public User(String id, String name, String email, String password, List<Tournament> tournamentList) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.tournamentList = tournamentList;
+	}
 
 	public String getId() {
 		return id;

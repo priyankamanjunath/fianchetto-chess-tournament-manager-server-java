@@ -8,6 +8,16 @@ public class Round {
 	private List<Match> matchList;
 	private List<User> playerList;
 	
+	public Round() {
+		
+	}
+	
+	public Round(String id, Tournament tournamentId, List<Match> matchList, List<User> playerList) {
+		this.id = id;
+		this.tournamentId = tournamentId;
+		this.matchList = matchList;
+		this.playerList = playerList;
+	}
 	
 	public String getId() {
 		return id;

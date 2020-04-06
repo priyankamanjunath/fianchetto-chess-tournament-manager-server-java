@@ -5,8 +5,20 @@ public class Match {
 	private String id;
 	private User player1;
 	private User player2;
-	private int result;
+	private int result = 0;
 	private Round round;
+	
+	public Match() {
+		
+	}
+
+	public Match(String id, User player1, User player2, int result, Round round) {
+		this.id = id;
+		this.player1 = player1;
+		this.player2 = player2;
+		this.result = result;
+		this.round = round;
+	}
 	
 	public String getId() {
 		return id;

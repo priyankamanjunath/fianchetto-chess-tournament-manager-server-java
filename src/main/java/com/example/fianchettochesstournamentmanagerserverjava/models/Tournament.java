@@ -16,6 +16,28 @@ public class Tournament {
 	private List<User> playerList;
 	private List<Round> roundList;
 	
+	public Tournament() {
+		
+	}
+	
+	public Tournament(String id) {
+		this.id = id;
+	}
+	
+	public Tournament(String id, boolean type, String location, int prize, Date startDate, Date endDate,
+			boolean inProgress, User winner, User master, List<User> playerList, List<Round> roundList) {
+		this.id = id;
+		this.type = type;
+		this.location = location;
+		this.prize = prize;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.inProgress = inProgress;
+		this.winner = winner;
+		this.master = master;
+		this.playerList = playerList;
+		this.roundList = roundList;
+	}
 	
 	public String getId() {
 		return id;
