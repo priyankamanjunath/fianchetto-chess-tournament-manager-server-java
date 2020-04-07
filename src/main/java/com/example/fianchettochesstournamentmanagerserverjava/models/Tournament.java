@@ -21,6 +21,7 @@ public class Tournament {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String name;
 	private String location;
 	private int prize;
 	private Date startDate = new Date();
@@ -44,9 +45,10 @@ public class Tournament {
 		
 	}
 	
-	public Tournament(boolean type, String location, int prize, Date startDate, Date endDate,
+	public Tournament(boolean type, String name, String location, int prize, Date startDate, Date endDate,
 			boolean inProgress, User winner, User master, List<User> playerList, List<Round> roundList) {
 		this.type = type;
+		this.name = name;
 		this.location = location;
 		this.prize = prize;
 		this.startDate = startDate;
@@ -124,6 +126,14 @@ public class Tournament {
 //	public void setRoundList(List<Round> roundList) {
 //		this.roundList = roundList;
 //	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	
 
