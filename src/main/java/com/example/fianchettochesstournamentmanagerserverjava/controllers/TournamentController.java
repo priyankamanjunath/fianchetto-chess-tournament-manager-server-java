@@ -22,27 +22,27 @@ public class TournamentController {
 	@Autowired
 	TournamentService tournamentService;
 	
-	@GetMapping("/get/tournament/{tournamentId}")
+	@GetMapping("/api/tournament/{tournamentId}")
 	public Tournament findTournamentById(@PathVariable ("tournamentId") Integer tournamentId) {
 		return tournamentService.findTournamentById(tournamentId);
 	}
 	
-//	@GetMapping("/get/tournament/:tournamentId/users")
-//	public List<User> findPlayersForTournament(@PathVariable ("tournamentId") String tournamentId) {
-//		return tournamentService.findPlayersForTournament(tournamentId);
-//	}
+	@GetMapping("/api/tournament/{tournamentId}/users")
+	public List<User> findPlayersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+		return tournamentService.findPlayersForTournament(tournamentId);
+	}
 	
-	@PostMapping("/create/tournament")
+	@PostMapping("/api/tournament")
 	public Tournament createTournament(@RequestBody Tournament t) {
 		return tournamentService.createTournament(t);
 	}
 	
-	@DeleteMapping("/delete/tournament/{tournamentId}")
+	@DeleteMapping("/api/tournament/{tournamentId}")
 	public void deleteTournament(@PathVariable ("tournamentId") Integer tournamentId) {
 		tournamentService.deleteTournament(tournamentId);
 	}
 	
-	@GetMapping("/get/tournaments")
+	@GetMapping("/api/tournaments")
 	public List<Tournament> findAllTournaments() {
 		return tournamentService.findAllTournaments();
 	}

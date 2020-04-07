@@ -1,14 +1,13 @@
 package com.example.fianchettochesstournamentmanagerserverjava.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 
 @Service
@@ -17,23 +16,47 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	TournamentRepository tournamentRepository;
+	
 	public List<User> findAllUsers() {
 		return (List<User>) userRepository.findAll();
 	}
 	
-//	public List<Tournament> findTournamentsForUser(String userId) {
-//		for (User u : userList) {
-//			if (u.getId().equals(userId)) {
-//				return u.getTournamentList();
-//			}
-//		}
-//		return null;
-//	}
+	public int registerToTournament(Integer userId, Integer tournamentId) {
+		User u = userRepository.findById(userId).get();
+		Tournament t = tournamentRepository.findById(tournamentId).get();
+		if (!u.getTournamentList().contains(t)) {
+			u.getTournamentList().add(t);
+			userRepository.save(u);
+			return 1;
+		}
+		return 0;
+		
+	}
+	
+	public int deregisterFromTournamement(Integer userId, Integer tournamentId) {
+		User u = userRepository.findById(userId).get();
+		Tournament t = tournamentRepository.findById(tournamentId).get();
+		if (u.getTournamentList().contains(t)) {
+			u.getTournamentList().remove(t);
+			userRepository.save(u);
+			return 1;
+		}
+		return 0;
+	}
+	
+	public List<Tournament> findTournamentsForUser(Integer userId) {
+		for (User u : userRepository.findAll()) {
+			if (u.getId().equals(userId)) {
+				return u.getTournamentList();
+			}
+		}
+		return null;
+	}
  	
 	public User createUser(User u) {
-//		userList.add(u);
-//		return u;
-		return null;
+		return userRepository.save(u);
 	}
 	
 	public void deleteUser(Integer userId) {

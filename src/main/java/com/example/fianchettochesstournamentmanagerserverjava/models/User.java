@@ -1,11 +1,15 @@
 package com.example.fianchettochesstournamentmanagerserverjava.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +23,12 @@ public class User {
 	private String email;
 	private String password;
 	
-//	private List<Tournament> tournamentList;
+	@ManyToMany
+	@JoinTable(
+			name = "user_tournament",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "tournament_id"))
+	private List<Tournament> tournamentList = new ArrayList<>();
 	
 	public User() {
 		
@@ -30,7 +39,7 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-//		this.tournamentList = new ArrayList<>();
+		this.tournamentList = new ArrayList<>();
 	}
 	
 	public User(Integer id, String name, String email, String password, List<Tournament> tournamentList) {
@@ -38,7 +47,7 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-//		this.tournamentList = tournamentList;
+		this.tournamentList = tournamentList;
 	}
 
 	public Integer getId() {
@@ -73,11 +82,11 @@ public class User {
 		this.password = password;
 	}
 
-//	public List<Tournament> getTournamentList() {
-//		return tournamentList;
-//	}
-//
-//	public void setTournamentList(List<Tournament> tournamentList) {
-//		this.tournamentList = tournamentList;
-//	}
+	public List<Tournament> getTournamentList() {
+		return tournamentList;
+	}
+
+	public void setTournamentList(List<Tournament> tournamentList) {
+		this.tournamentList = tournamentList;
+	}
 }
