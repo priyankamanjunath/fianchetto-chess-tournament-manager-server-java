@@ -32,7 +32,7 @@ public class TournamentController {
 		return tournamentService.findPlayersForTournament(tournamentId);
 	}
 	
-	@PostMapping("/api/tournament")
+	@PostMapping("/api/tournaments")
 	public Tournament createTournament(@RequestBody Tournament t) {
 		return tournamentService.createTournament(t);
 	}
