@@ -4,47 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
+
+@Service
 public class TournamentService {
 	
-	List<Tournament> tournamentList = new ArrayList<>();
+	@Autowired
+	TournamentRepository tournamentRepository;
 	
-	{
-		Tournament t1 = new Tournament("t1");
-		Tournament t2 = new Tournament("t2");
-		Tournament t3 = new Tournament("t3");
-		Tournament t4 = new Tournament("t4");
-		Tournament t5 = new Tournament("t5");
-		tournamentList.add(t1);
-		tournamentList.add(t2);
-		tournamentList.add(t3);
-		tournamentList.add(t4);
-		tournamentList.add(t5);
-	}
-
 	public Tournament createTournament(Tournament t) {
-		tournamentList.add(t);
+//		tournamentList.add(t);
+//		return t;
 		return null;
 	}
+	
+//	public List<User> findPlayersForTournament(String tournamentId) {
+//		for (Tournament t : tournamentList) {
+//			if (t.getId().equals(tournamentId)) {
+//				return t.getPlayerList();
+//			}
+//		}
+//		return null;
+//	}
 	
 	public List<Tournament> findAllTournaments() {
-		return tournamentList;
+		return (List<Tournament>) tournamentRepository.findAll();
 	}
 	
-	public void deleteTournament(String tournamentId) {
-		tournamentList = tournamentList.stream()
-				.filter(t -> !t.getId().equals(tournamentId)).collect(Collectors.toList());
-				
+	public void deleteTournament(Integer tournamentId) {
+		tournamentRepository.deleteById(tournamentId);
 	}
 	
-	public Tournament findTournamentById(String tournamentId) {
-		for (Tournament t: tournamentList) {
-			if (t.getId().equals(tournamentId)) {
-				return t;
-			}
-		}
-		return null;
+	public Tournament findTournamentById(Integer tournamentId) {
+		return tournamentRepository.findById(tournamentId).get();
 	}
 
 }

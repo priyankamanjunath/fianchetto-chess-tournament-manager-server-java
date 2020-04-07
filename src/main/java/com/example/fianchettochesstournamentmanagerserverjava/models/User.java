@@ -1,42 +1,51 @@
 package com.example.fianchettochesstournamentmanagerserverjava.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
 	
-	private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String name;
 	private String email;
 	private String password;
 	
-	private List<Tournament> tournamentList;
+//	private List<Tournament> tournamentList;
 	
 	public User() {
 		
 	}
 	
-	public User(String id, String name, String email, String password) {
+	public User(Integer id, String name, String email, String password) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.tournamentList = new ArrayList<>();
+//		this.tournamentList = new ArrayList<>();
 	}
 	
-	public User(String id, String name, String email, String password, List<Tournament> tournamentList) {
+	public User(Integer id, String name, String email, String password, List<Tournament> tournamentList) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.tournamentList = tournamentList;
+//		this.tournamentList = tournamentList;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -64,11 +73,11 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Tournament> getTournamentList() {
-		return tournamentList;
-	}
-
-	public void setTournamentList(List<Tournament> tournamentList) {
-		this.tournamentList = tournamentList;
-	}
+//	public List<Tournament> getTournamentList() {
+//		return tournamentList;
+//	}
+//
+//	public void setTournamentList(List<Tournament> tournamentList) {
+//		this.tournamentList = tournamentList;
+//	}
 }

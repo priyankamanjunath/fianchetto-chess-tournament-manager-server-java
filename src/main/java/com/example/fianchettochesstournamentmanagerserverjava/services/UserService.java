@@ -4,45 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 
+@Service
 public class UserService {
 	
-	List<User> userList = new ArrayList<>();
-	
-	{
-		User w1 = new User("1", "Fenil", "fenil@abc.com", "12345", new ArrayList<Tournament>());
-		User w2 = new User("2", "Jaynil", "jaynil@abc.com", "12345", new ArrayList<Tournament>());
-		User w3 = new User("3", "Priyanka", "priyanka@abc.com", "12345", new ArrayList<Tournament>());
-		User w4 = new User("4", "Akshay", "akshay@abc.com", "12345", new ArrayList<Tournament>());
-		userList.add(w1);
-		userList.add(w2);
-		userList.add(w3);
-		userList.add(w4);
-	}
+	@Autowired
+	UserRepository userRepository;
 	
 	public List<User> findAllUsers() {
-		return userList;
+		return (List<User>) userRepository.findAll();
 	}
 	
+//	public List<Tournament> findTournamentsForUser(String userId) {
+//		for (User u : userList) {
+//			if (u.getId().equals(userId)) {
+//				return u.getTournamentList();
+//			}
+//		}
+//		return null;
+//	}
+ 	
 	public User createUser(User u) {
-		userList.add(u);
-		return u;
+//		userList.add(u);
+//		return u;
+		return null;
 	}
 	
-	public void deleteUser(String userId) {
-		userList = userList.stream()
-				.filter(u -> !u.getId().equals(userId)).collect(Collectors.toList());
+	public void deleteUser(Integer userId) {
+		userRepository.deleteById(userId);
 	}
 
-	public User findUserById(String userId) {
-		for (User u : userList) {
-			if (u.getId().equals(userId)) {
-				return u;
-			}
-		}
-		return null;
+	public User findUserById(Integer userId) {
+		return userRepository.findById(userId).get();
 	}
 
 }
