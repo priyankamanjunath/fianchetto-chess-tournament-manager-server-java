@@ -56,6 +56,11 @@ public class UserService {
 	}
  	
 	public User createUser(User u) {
+		for (User user : userRepository.findAll()) {
+			if (u.getEmail().equals(user.getEmail())) {
+				return null;
+			}
+		}
 		return userRepository.save(u);
 	}
 	
