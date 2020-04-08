@@ -33,6 +33,11 @@ public class UserController {
 		return userService.findTournamentsForUser(userId);
 	}
 	
+	@PostMapping("/api/login")
+	public User login(@RequestBody User u) {
+		return userService.login(u);
+	}
+	
 	@PutMapping("/api/user/{userId}/tournament/{tournamentId}")
 	public int registerToTournament(@PathVariable ("userId") Integer userId
 			, @PathVariable ("tournamentId") Integer tournamentId) {

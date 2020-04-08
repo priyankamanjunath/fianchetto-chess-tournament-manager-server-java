@@ -46,6 +46,15 @@ public class UserService {
 		return 0;
 	}
 	
+	public User login(User u) {
+		for (User user: userRepository.findAll()) {
+			if (u.getEmail().equals(user.getEmail()) && u.getPassword().equals(user.getPassword())) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
 	public List<Tournament> findTournamentsForUser(Integer userId) {
 		for (User u : userRepository.findAll()) {
 			if (u.getId().equals(userId)) {
