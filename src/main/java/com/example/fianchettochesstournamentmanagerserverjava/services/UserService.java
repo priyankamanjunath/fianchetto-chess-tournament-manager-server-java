@@ -47,8 +47,9 @@ public class UserService {
 	}
 	
 	public User login(User u) {
-		for (User user: userRepository.findAll()) {
-			if (u.getEmail().equals(user.getEmail()) && u.getPassword().equals(user.getPassword())) {
+		User user;
+		if ((user = userRepository.findUserByEmail(u.getEmail())) != null) {
+			if (user.getPassword().equals(u.getPassword())) {
 				return user;
 			}
 		}
