@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -39,7 +40,8 @@ public class Tournament {
 	@JsonIgnore
 	private List<User> playerList = new ArrayList<>();
 	
-//	private List<Round> roundList;
+	@OneToMany(mappedBy = "tournament")
+	private List<Round> roundList;
 	
 	public Tournament() {
 		
@@ -57,7 +59,7 @@ public class Tournament {
 		this.winner = winner;
 		this.master = master;
 		this.playerList = playerList;
-//		this.roundList = roundList;
+		this.roundList = roundList;
 	}
 	
 	public Integer getId() {
@@ -120,12 +122,12 @@ public class Tournament {
 	public void setPlayerList(List<User> playerList) {
 		this.playerList = playerList;
 	}
-//	public List<Round> getRoundList() {
-//		return roundList;
-//	}
-//	public void setRoundList(List<Round> roundList) {
-//		this.roundList = roundList;
-//	}
+	public List<Round> getRoundList() {
+		return roundList;
+	}
+	public void setRoundList(List<Round> roundList) {
+		this.roundList = roundList;
+	}
 
 	public String getName() {
 		return name;

@@ -26,7 +26,7 @@ public class UserService {
 	public int registerToTournament(Integer userId, Integer tournamentId) {
 		User u = userRepository.findById(userId).get();
 		Tournament t = tournamentRepository.findById(tournamentId).get();
-		if (!u.getTournamentList().contains(t)) {
+		if (!u.getTournamentList().contains(t) && !t.getMaster().equals(u)) {
 			u.getTournamentList().add(t);
 			userRepository.save(u);
 			return 1;

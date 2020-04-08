@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
@@ -23,6 +24,15 @@ public class TournamentService {
 		for (Tournament t : tournamentRepository.findAll()) {
 			if (t.getId().equals(tournamentId)) {
 				return t.getPlayerList();
+			}
+		}
+		return null;
+	}
+	
+	public List<Round> findRoundsForTournament(Integer tournamentId) {
+		for (Tournament t : tournamentRepository.findAll()) {
+			if (t.getId().equals(tournamentId)) {
+				return t.getRoundList();
 			}
 		}
 		return null;

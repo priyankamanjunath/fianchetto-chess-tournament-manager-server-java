@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.services.TournamentService;
@@ -30,6 +31,11 @@ public class TournamentController {
 	@GetMapping("/api/tournament/{tournamentId}/users")
 	public List<User> findPlayersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
 		return tournamentService.findPlayersForTournament(tournamentId);
+	}
+	
+	@GetMapping("/api/tournament/{tournamentId}/rounds")
+	public List<Round> findRoundsForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+		return tournamentService.findRoundsForTournament(tournamentId);
 	}
 	
 	@PostMapping("/api/tournaments")
