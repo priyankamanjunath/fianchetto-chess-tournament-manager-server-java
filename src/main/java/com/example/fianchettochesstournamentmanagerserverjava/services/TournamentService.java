@@ -16,9 +16,19 @@ public class TournamentService {
 	@Autowired
 	TournamentRepository tournamentRepository;
 	
+//	@Autowired
+//	UserRepository userRepository;
+	
 	public Tournament createTournament(Tournament t) {
 		return tournamentRepository.save(t);
 	}
+	
+//	public Tournament createTournament(Integer userId, Tournament t) {
+//		User u = userRepository.findById(userId).get();
+//		u.setTournamentList(u.getTournamentList().add(t));
+//		userRepository.save(u);
+//		return tournamentRepository.save(t);
+//	}
 	
 	public List<User> findPlayersForTournament(Integer tournamentId) {
 		for (Tournament t : tournamentRepository.findAll()) {

@@ -24,7 +24,9 @@ public class Round {
 	@JsonIgnore
 	private Tournament tournament;
 	
-//	private List<Match> matchList;
+	@OneToMany(mappedBy = "round")
+	private List<Match> matchList;
+	
 	@OneToMany
 	private List<User> playerList;
 	
@@ -35,7 +37,7 @@ public class Round {
 	public Round(Integer id, Tournament tournament, List<Match> matchList, List<User> playerList) {
 		this.id = id;
 		this.tournament = tournament;
-//		this.matchList = matchList;
+		this.matchList = matchList;
 		this.playerList = playerList;
 	}
 	
@@ -51,12 +53,12 @@ public class Round {
 	public void setTournamentId(Tournament tournament) {
 		this.tournament = tournament;
 	}
-//	public List<Match> getMatchList() {
-//		return matchList;
-//	}
-//	public void setMatchList(List<Match> matchList) {
-//		this.matchList = matchList;
-//	}
+	public List<Match> getMatchList() {
+		return matchList;
+	}
+	public void setMatchList(List<Match> matchList) {
+		this.matchList = matchList;
+	}
 	public List<User> getPlayerList() {
 		return playerList;
 	}

@@ -1,18 +1,37 @@
 package com.example.fianchettochesstournamentmanagerserverjava.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+@Entity
+@Table(name = "matches")
 public class Match {
 	
-	private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@OneToOne
 	private User player1;
+	
+	@OneToOne
 	private User player2;
+	
 	private int result = 0;
+	
+	@ManyToOne
 	private Round round;
 	
 	public Match() {
 		
 	}
 
-	public Match(String id, User player1, User player2, int result, Round round) {
+	public Match(Integer id, User player1, User player2, int result, Round round) {
 		this.id = id;
 		this.player1 = player1;
 		this.player2 = player2;
@@ -20,10 +39,10 @@ public class Match {
 		this.round = round;
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public User getPlayer1() {

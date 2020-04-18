@@ -43,6 +43,11 @@ public class TournamentController {
 		return tournamentService.createTournament(t);
 	}
 	
+//	@PostMapping("/api/user/{userId}/tournaments")
+//	public Tournament createTournament(@PathVariable ("userId") Integer userId,@RequestBody Tournament t) {
+//		return tournamentService.createTournament(userId, t);
+//	}
+	
 	@DeleteMapping("/api/tournament/{tournamentId}")
 	public void deleteTournament(@PathVariable ("tournamentId") Integer tournamentId) {
 		tournamentService.deleteTournament(tournamentId);
