@@ -28,6 +28,6 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE matches SET result = :result WHERE id = :id", nativeQuery = true)
-	public void updateMatchResults(@Param ("id") Integer id, @Param ("result") Integer result);
+	public void updateMatchResult(@Param ("id") Integer id, @Param ("result") Integer result);
 
 }

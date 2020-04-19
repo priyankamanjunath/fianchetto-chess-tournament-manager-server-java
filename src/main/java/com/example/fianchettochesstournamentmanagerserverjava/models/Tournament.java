@@ -27,6 +27,7 @@ public class Tournament {
 	private int prize;
 	private Date startDate = new Date();
 	private Date endDate = new Date();
+	private String description = null;
 	private boolean inProgress = true;
 	
 	@OneToOne
@@ -47,11 +48,12 @@ public class Tournament {
 		
 	}
 	
-	public Tournament(String name, String location, int prize, Date startDate, Date endDate,
+	public Tournament(String name, String description, String location, int prize, Date startDate, Date endDate,
 			boolean inProgress, User winner, User master, List<User> playerList, List<Round> roundList) {
 		this.name = name;
 		this.location = location;
 		this.prize = prize;
+		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.inProgress = inProgress;
@@ -129,7 +131,13 @@ public class Tournament {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }
