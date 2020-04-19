@@ -24,7 +24,7 @@ public class Match {
 	@OneToOne
 	private User player2;
 	
-	private int result = 0;
+	private int result = -9;
 	
 	@ManyToOne
 	private Round round;

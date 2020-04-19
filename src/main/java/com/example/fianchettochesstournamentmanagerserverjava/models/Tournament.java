@@ -27,8 +27,7 @@ public class Tournament {
 	private int prize;
 	private Date startDate = new Date();
 	private Date endDate = new Date();
-	private boolean inProgress;
-	private boolean type;
+	private boolean inProgress = true;
 	
 	@OneToOne
 	private User winner;
@@ -48,9 +47,8 @@ public class Tournament {
 		
 	}
 	
-	public Tournament(boolean type, String name, String location, int prize, Date startDate, Date endDate,
+	public Tournament(String name, String location, int prize, Date startDate, Date endDate,
 			boolean inProgress, User winner, User master, List<User> playerList, List<Round> roundList) {
-		this.type = type;
 		this.name = name;
 		this.location = location;
 		this.prize = prize;
@@ -68,12 +66,6 @@ public class Tournament {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public boolean isType() {
-		return type;
-	}
-	public void setType(boolean type) {
-		this.type = type;
 	}
 	public String getLocation() {
 		return location;
