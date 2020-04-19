@@ -49,10 +49,10 @@ public class Round {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Tournament getTournamentId() {
+	public Tournament getTournament() {
 		return tournament;
 	}
-	public void setTournamentId(Tournament tournament) {
+	public void setTournament(Tournament tournament) {
 		this.tournament = tournament;
 	}
 	public List<Match> getMatchList() {

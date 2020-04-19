@@ -22,22 +22,27 @@ public class MatchController {
 	MatchService matchService;
 	
 	@GetMapping("/api/matches")
-	public List<Match> findAllRounds() {
+	public List<Match> findAllMatches() {
 		return matchService.findAllMatches();
 	}
 	
 	@PostMapping("/api/matches")
-	public Match createRound(@RequestBody Match m) {
+	public Match createMatch(@RequestBody Match m) {
 		return matchService.createMatch(m);
 	}
 	
+	@PostMapping("/api/round/{roundId}/matches")
+	public Match createMatch(@RequestBody Match m, @PathVariable ("roundId") Integer roundId) {
+		return matchService.createMatch(m, roundId);
+	}
+	
 	@GetMapping("/api/match/{matchId}")
-	public Match findRoundById(@PathVariable ("matchId") Integer roundId) {
+	public Match findMatchById(@PathVariable ("matchId") Integer roundId) {
 		return matchService.findMatchById(roundId);
 	}
 	
 	@DeleteMapping("/api/match/{matchId}")
-	public void deleteRound(@PathVariable ("matchId") Integer roundId) {
+	public void deleteMatch(@PathVariable ("matchId") Integer roundId) {
 		matchService.deleteMatch(roundId);
 	}
 	

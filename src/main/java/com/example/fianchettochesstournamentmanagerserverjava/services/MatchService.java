@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.MatchRepository;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.RoundRepository;
 
 @Service
 public class MatchService {
 
 	@Autowired
 	MatchRepository matchRepository;
+	
+	@Autowired
+	RoundRepository roundRepository;
 	
 	public Match createMatch(Match m) {
 		return matchRepository.save(m);
@@ -32,6 +36,11 @@ public class MatchService {
 
 	public List<Match> findMatchesForRound(Integer roundId) {
 		return matchRepository.findMatchesForRound(roundId);
+	}
+
+	public Match createMatch(Match m, Integer roundId) {
+		m.setRound(roundRepository.findById(roundId).get());
+		return matchRepository.save(m);
 	}
 	
 }
