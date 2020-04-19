@@ -33,11 +33,6 @@ public class TournamentController {
 		return tournamentService.findPlayersForTournament(tournamentId);
 	}
 	
-	@GetMapping("/api/tournament/{tournamentId}/rounds")
-	public List<Round> findRoundsForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
-		return tournamentService.findRoundsForTournament(tournamentId);
-	}
-	
 	@PostMapping("/api/tournaments")
 	public Tournament createTournament(@RequestBody Tournament t) {
 		return tournamentService.createTournament(t);

@@ -30,4 +30,7 @@ public class RoundService {
 		roundRepository.deleteById(roundId);
 	}
 	
+	public List<Round> findRoundsForTournament(Integer tournamentId) {
+		return roundRepository.findRoundsForTournament(tournamentId);
+	}
 }

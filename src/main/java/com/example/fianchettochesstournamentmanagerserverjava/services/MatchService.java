@@ -29,5 +29,9 @@ public class MatchService {
 	public void deleteMatch(Integer matchId) {
 		matchRepository.deleteById(matchId);
 	}
+
+	public List<Match> findMatchesForRound(Integer roundId) {
+		return matchRepository.findMatchesForRound(roundId);
+	}
 	
 }

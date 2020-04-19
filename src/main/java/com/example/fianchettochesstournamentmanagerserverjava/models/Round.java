@@ -25,9 +25,11 @@ public class Round {
 	private Tournament tournament;
 	
 	@OneToMany(mappedBy = "round")
+	@JsonIgnore
 	private List<Match> matchList;
 	
 	@OneToMany
+	@JsonIgnore
 	private List<User> playerList;
 	
 	public Round() {

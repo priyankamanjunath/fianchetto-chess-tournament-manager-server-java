@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
 import com.example.fianchettochesstournamentmanagerserverjava.services.RoundService;
 
@@ -39,5 +40,10 @@ public class RoundController {
 	@DeleteMapping("/api/round/{roundId}")
 	public void deleteRound(@PathVariable ("roundId") Integer roundId) {
 		roundService.deleteRound(roundId);
+	}
+	
+	@GetMapping("/api/tournament/{tournamentId}/rounds")
+	public List<Round> findRoundsForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+		return roundService.findRoundsForTournament(tournamentId);
 	}
 }

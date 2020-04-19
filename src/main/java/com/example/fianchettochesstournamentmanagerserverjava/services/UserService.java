@@ -1,4 +1,4 @@
-package com.example.fianchettochesstournamentmanagerserverjava.services;
+ package com.example.fianchettochesstournamentmanagerserverjava.services;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class UserService {
 	public int registerToTournament(Integer userId, Integer tournamentId) {
 		User u = userRepository.findById(userId).get();
 		Tournament t = tournamentRepository.findById(tournamentId).get();
-		if (!u.getTournamentList().contains(t) && !t.getMaster().equals(u)) {
+		if (!u.getTournamentList().contains(t)) {
 			u.getTournamentList().add(t);
 			userRepository.save(u);
 			return 1;
@@ -47,13 +47,7 @@ public class UserService {
 	}
 	
 	public User login(User u) {
-		User user;
-		if ((user = userRepository.findUserByEmail(u.getEmail())) != null) {
-			if (user.getPassword().equals(u.getPassword())) {
-				return user;
-			}
-		}
-		return null;
+		return userRepository.findUserByEmail(u.getEmail(), u.getPassword());
 	}
 	
 	public List<Tournament> findTournamentsForUser(Integer userId) {

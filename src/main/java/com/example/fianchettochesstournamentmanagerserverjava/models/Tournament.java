@@ -41,6 +41,7 @@ public class Tournament {
 	private List<User> playerList = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "tournament")
+	@JsonIgnore
 	private List<Round> roundList;
 	
 	public Tournament() {

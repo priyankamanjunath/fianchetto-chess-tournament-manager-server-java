@@ -40,4 +40,9 @@ public class MatchController {
 	public void deleteRound(@PathVariable ("matchId") Integer roundId) {
 		matchService.deleteMatch(roundId);
 	}
+	
+	@GetMapping("/api/round/{roundId}/matches")
+	public List<Match> findMatchesForRound(@PathVariable ("roundId") Integer roundId) {
+		return matchService.findMatchesForRound(roundId);
+	}
 }

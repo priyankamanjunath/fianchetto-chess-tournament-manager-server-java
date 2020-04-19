@@ -39,15 +39,6 @@ public class TournamentService {
 		return null;
 	}
 	
-	public List<Round> findRoundsForTournament(Integer tournamentId) {
-		for (Tournament t : tournamentRepository.findAll()) {
-			if (t.getId().equals(tournamentId)) {
-				return t.getRoundList();
-			}
-		}
-		return null;
-	}
-	
 	public List<Tournament> findAllTournaments() {
 		return (List<Tournament>) tournamentRepository.findAll();
 	}
@@ -59,5 +50,4 @@ public class TournamentService {
 	public Tournament findTournamentById(Integer tournamentId) {
 		return tournamentRepository.findById(tournamentId).get();
 	}
-
 }

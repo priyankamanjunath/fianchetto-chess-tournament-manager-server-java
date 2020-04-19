@@ -16,6 +16,8 @@ public class Match {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String name;
+	
 	@OneToOne
 	private User player1;
 	
@@ -31,12 +33,13 @@ public class Match {
 		
 	}
 
-	public Match(Integer id, User player1, User player2, int result, Round round) {
+	public Match(Integer id, User player1, User player2, int result, Round round, String name) {
 		this.id = id;
 		this.player1 = player1;
 		this.player2 = player2;
 		this.result = result;
 		this.round = round;
+		this.name = name;
 	}
 	
 	public Integer getId() {
@@ -68,5 +71,13 @@ public class Match {
 	}
 	public void setRound(Round round) {
 		this.round = round;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

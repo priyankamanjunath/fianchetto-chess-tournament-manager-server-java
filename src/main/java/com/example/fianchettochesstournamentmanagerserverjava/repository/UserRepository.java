@@ -8,8 +8,8 @@ import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-	@Query(value = "SELECT * FROM users WHERE email = :email", 
+	@Query(value = "SELECT * FROM users WHERE email = :email AND password = :password", 
 			nativeQuery = true)
-	public User findUserByEmail(@Param("email") String email);
+	public User findUserByEmail(@Param("email") String email, @Param("password") String password);
 	
 }
