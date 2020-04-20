@@ -67,9 +67,9 @@ public class MatchController {
 	public int updateMatchResult(@PathVariable ("matchId") Integer matchId, @RequestBody Match match) {
 		return matchService.updateMatchResult(matchId, match);
 	}
-//	
-//	@PutMapping("/api/matches")
-//	public int updateMatchResults(@RequestBody List<Match> matches) {
-//		return matchService.updateMatchResults(matches);
-//	}
+	
+	@PutMapping("/api/matches")
+	public int updateMatchResults(@RequestBody List<Match> matches) {
+		return matchService.updateMatchResults(matches);
+	}
 }

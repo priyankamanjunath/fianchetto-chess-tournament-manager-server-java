@@ -97,13 +97,12 @@ public class MatchService {
 		}
 		return 0;
 	}
-//	
-//	public int updateMatchResults(List<Match> matches) {
-//		for (Match m : matches) {
-//			System.out.println(m.getId() + " " + m.getResult());
-//			matchRepository.updateMatchResult(m.getId(), m.getResult());
-//		}
-//		return 1;
-//	}
+	
+	public int updateMatchResults(List<Match> matches) {
+		for (Match m : matches) {
+			updateMatchResult(m.getId(), m);
+		}
+		return 1;
+	}
 	
 }
