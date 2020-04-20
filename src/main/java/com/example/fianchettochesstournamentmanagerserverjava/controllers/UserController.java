@@ -19,7 +19,7 @@ import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.services.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000, https://fianchetto-client.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "*")
 public class UserController {
 	
 	@Autowired
