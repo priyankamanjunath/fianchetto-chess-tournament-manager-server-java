@@ -1,6 +1,5 @@
 package com.example.fianchettochesstournamentmanagerserverjava.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.services.TournamentService;

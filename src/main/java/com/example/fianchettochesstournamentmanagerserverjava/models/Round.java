@@ -20,6 +20,8 @@ public class Round {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	private String name;
+	
 	@ManyToOne
 	@JsonIgnore
 	private Tournament tournament;
@@ -55,5 +57,13 @@ public class Round {
 	}
 	public void setMatchList(List<Match> matchList) {
 		this.matchList = matchList;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -3,15 +3,16 @@ package com.example.fianchettochesstournamentmanagerserverjava.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -26,12 +27,9 @@ public class User {
 	private String email;
 	private String password;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "user_tournament",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "tournament_id"))
-	private List<Tournament> tournamentList = new ArrayList<>();
+	@OneToMany (mappedBy = "player", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<UserTournament> tournamentList =  new ArrayList<>();
 	
 	public User() {
 		
@@ -45,7 +43,7 @@ public class User {
 		this.tournamentList = new ArrayList<>();
 	}
 	
-	public User(Integer id, String name, String email, String password, List<Tournament> tournamentList) {
+	public User(Integer id, String name, String email, String password, List<UserTournament> tournamentList) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -85,11 +83,11 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Tournament> getTournamentList() {
+	public List<UserTournament> getTournamentList() {
 		return tournamentList;
 	}
 
-	public void setTournamentList(List<Tournament> tournamentList) {
+	public void setTournamentList(List<UserTournament> tournamentList) {
 		this.tournamentList = tournamentList;
 	}
 }

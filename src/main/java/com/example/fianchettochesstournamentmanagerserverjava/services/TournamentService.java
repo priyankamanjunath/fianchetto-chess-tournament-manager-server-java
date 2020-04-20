@@ -1,13 +1,14 @@
 package com.example.fianchettochesstournamentmanagerserverjava.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
+import com.example.fianchettochesstournamentmanagerserverjava.models.UserTournament;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
 
 @Service
@@ -31,12 +32,11 @@ public class TournamentService {
 //	}
 	
 	public List<User> findPlayersForTournament(Integer tournamentId) {
-		for (Tournament t : tournamentRepository.findAll()) {
-			if (t.getId().equals(tournamentId)) {
-				return t.getPlayerList();
-			}
+		List<User> users = new ArrayList<>();
+		for (UserTournament ut : tournamentRepository.findById(tournamentId).get().getPlayerList()) {
+			users.add(ut.getPlayer());
 		}
-		return null;
+		return users;
 	}
 	
 	public List<Tournament> findAllTournaments() {

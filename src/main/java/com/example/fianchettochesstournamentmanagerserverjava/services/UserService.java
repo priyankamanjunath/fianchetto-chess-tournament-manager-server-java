@@ -1,5 +1,6 @@
  package com.example.fianchettochesstournamentmanagerserverjava.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
+import com.example.fianchettochesstournamentmanagerserverjava.models.UserTournament;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.UserTournamentRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	UserTournamentRepository userTournamentRepository; 
 	
 	@Autowired
 	TournamentRepository tournamentRepository;
@@ -26,24 +32,15 @@ public class UserService {
 	public int registerToTournament(Integer userId, Integer tournamentId) {
 		User u = userRepository.findById(userId).get();
 		Tournament t = tournamentRepository.findById(tournamentId).get();
-		if (!u.getTournamentList().contains(t)) {
-			u.getTournamentList().add(t);
-			userRepository.save(u);
-			return 1;
-		}
-		return 0;
-		
+		u.getTournamentList().add(new UserTournament(u, t));
+		User user = userRepository.save(u);
+		return (user != null) ? 1 : 0; 		
 	}
 	
 	public int deregisterFromTournamement(Integer userId, Integer tournamentId) {
 		User u = userRepository.findById(userId).get();
 		Tournament t = tournamentRepository.findById(tournamentId).get();
-		if (u.getTournamentList().contains(t)) {
-			u.getTournamentList().remove(t);
-			userRepository.save(u);
-			return 1;
-		}
-		return 0;
+		return userRepository.deregister(u.getId(), t.getId());
 	}
 	
 	public User login(User u) {
@@ -51,12 +48,12 @@ public class UserService {
 	}
 	
 	public List<Tournament> findTournamentsForUser(Integer userId) {
-		for (User u : userRepository.findAll()) {
-			if (u.getId().equals(userId)) {
-				return u.getTournamentList();
-			}
+		User u = userRepository.findById(userId).get();
+		List<Tournament> tournaments = new ArrayList<>();
+		for (UserTournament ut : u.getTournamentList()) {
+			tournaments.add(ut.getTournament());
 		}
-		return null;
+		return tournaments;
 	}
  	
 	public User createUser(User u) {

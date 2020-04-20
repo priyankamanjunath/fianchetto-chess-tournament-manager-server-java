@@ -35,24 +35,24 @@ public class UserController {
 		return userService.findTournamentsForUser(userId);
 	}
 	
-	@PostMapping("/api/logout")
-	public void logout(HttpSession session) {
-		session.invalidate();
-	}
+//	@PostMapping("/api/logout")
+//	public void logout(HttpSession session) {
+//		session.invalidate();
+//	}
 	
 	@PostMapping("/api/login")
 	public User login(HttpSession session, @RequestBody User u) {
 		User user = userService.login(u);
-		if (user != null) {
-			session.setAttribute("user", user);
-		}
+//		if (user != null) {
+//			session.setAttribute("user", user);
+//		}
 		return user;
 	}
 	
-	@PostMapping("/api/user")
-	public User getCurrentUser(HttpSession session) {
-		return (User) session.getAttribute("user");
-	}
+//	@PostMapping("/api/user")
+//	public User getCurrentUser(HttpSession session) {
+//		return (User) session.getAttribute("user");
+//	}
 	
 	@PutMapping("/api/user/{userId}/tournament/{tournamentId}")
 	public int registerToTournament(@PathVariable ("userId") Integer userId
@@ -66,32 +66,32 @@ public class UserController {
 		return userService.deregisterFromTournamement(userId, tournamentId);
 	}
 	
-	@PutMapping("/api/tournament/{tournamentId}/register")
-	public int registerToTournament(HttpSession session
-			, @PathVariable ("tournamentId") Integer tournamentId) {
-		if (session.getAttribute("user") != null) {
-			User u = (User) session.getAttribute("user");
-			return userService.registerToTournament(u.getId(), tournamentId);
-		}
-		return 0;
-	}
+//	@PutMapping("/api/tournament/{tournamentId}/register")
+//	public int registerToTournament(HttpSession session
+//			, @PathVariable ("tournamentId") Integer tournamentId) {
+//		if (session.getAttribute("user") != null) {
+//			User u = (User) session.getAttribute("user");
+//			return userService.registerToTournament(u.getId(), tournamentId);
+//		}
+//		return 0;
+//	}
 	
-	@DeleteMapping("/api/tournament/{tournamentId}/deregister")
-	public int deregisterFromTournamement(HttpSession session
-			, @PathVariable ("tournamentId") Integer tournamentId) {
-		if (session.getAttribute("user") != null) {
-			User u = (User) session.getAttribute("user");
-			return userService.deregisterFromTournamement(u.getId(), tournamentId);
-		}
-		return 0;
-	}
+//	@DeleteMapping("/api/tournament/{tournamentId}/deregister")
+//	public int deregisterFromTournamement(HttpSession session
+//			, @PathVariable ("tournamentId") Integer tournamentId) {
+//		if (session.getAttribute("user") != null) {
+//			User u = (User) session.getAttribute("user");
+//			return userService.deregisterFromTournamement(u.getId(), tournamentId);
+//		}
+//		return 0;
+//	}
 	
 	@PostMapping("/api/users")
 	public User createUser(HttpSession session, @RequestBody User u) {
 		User user = userService.createUser(u);
-		if (user != null) {
-			session.setAttribute("user", user);
-		}
+//		if (user != null) {
+//			session.setAttribute("user", user);
+//		}
 		return user;
 	}
 	

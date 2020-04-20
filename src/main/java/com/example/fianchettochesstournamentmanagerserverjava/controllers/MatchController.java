@@ -63,10 +63,10 @@ public class MatchController {
 		return matchService.findUserMatchesForTournament(userId, tournamentId);
 	}
 	
-//	@PutMapping("/api/match/{matchId}")
-//	public int updateMatchResult(@PathVariable ("matchId") Integer matchId, @RequestBody Match match) {
-//		return matchService.updateMatchResult(matchId, match);
-//	}
+	@PutMapping("/api/match/{matchId}")
+	public int updateMatchResult(@PathVariable ("matchId") Integer matchId, @RequestBody Match match) {
+		return matchService.updateMatchResult(matchId, match);
+	}
 //	
 //	@PutMapping("/api/matches")
 //	public int updateMatchResults(@RequestBody List<Match> matches) {

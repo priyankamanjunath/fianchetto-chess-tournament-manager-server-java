@@ -1,14 +1,13 @@
 package com.example.fianchettochesstournamentmanagerserverjava.models;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,10 +34,10 @@ public class Tournament {
 	
 	@OneToOne
 	private User master;
-
-	@ManyToMany(mappedBy = "tournamentList")
+	
+	@OneToMany (mappedBy = "tournament", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<User> playerList = new ArrayList<>();
+	private List<UserTournament> playerList;
 	
 	@OneToMany(mappedBy = "tournament")
 	@JsonIgnore
@@ -49,7 +48,7 @@ public class Tournament {
 	}
 	
 	public Tournament(String name, String description, String location, int prize, Date startDate, Date endDate,
-			boolean inProgress, User winner, User master, List<User> playerList, List<Round> roundList) {
+			boolean inProgress, User winner, User master, List<UserTournament> playerList, List<Round> roundList) {
 		this.name = name;
 		this.location = location;
 		this.prize = prize;
@@ -111,10 +110,10 @@ public class Tournament {
 	public void setMaster(User master) {
 		this.master = master;
 	}
-	public List<User> getPlayerList() {
+	public List<UserTournament> getPlayerList() {
 		return playerList;
 	}
-	public void setPlayerList(List<User> playerList) {
+	public void setPlayerList(List<UserTournament> playerList) {
 		this.playerList = playerList;
 	}
 	public List<Round> getRoundList() {

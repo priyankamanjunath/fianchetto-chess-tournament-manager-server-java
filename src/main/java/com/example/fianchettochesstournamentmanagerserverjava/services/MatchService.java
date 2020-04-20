@@ -9,12 +9,16 @@ import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.MatchRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.RoundRepository;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 
 @Service
 public class MatchService {
 
 	@Autowired
 	MatchRepository matchRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	RoundRepository roundRepository;
@@ -41,6 +45,8 @@ public class MatchService {
 
 	public Match createMatch(Match m, Integer roundId) {
 		m.setRound(roundRepository.findById(roundId).get());
+		m.setHome(userRepository.findById(m.getHome().getId()).get());
+		m.setAway(userRepository.findById(m.getAway().getId()).get());
 		return matchRepository.save(m);
 	}
 	
@@ -52,13 +58,45 @@ public class MatchService {
 		return matchRepository.findUserMatchesForTournament(userId, tournamentId);
 	}
 	
-//	public int updateMatchResult(Integer matchId, Match match) {
-//		if (matchId == match.getId()) {
-//			matchRepository.updateMatchResult(matchId, match.getResult());
-//			return 1;
-//		}
-//		return 0;
-//	}
+	public int updateMatchResult(Integer matchId, Match match) {
+		if (matchId == match.getId()) {
+			Match m = matchRepository.findById(matchId).get();
+			Round r = roundRepository.findById(match.getRound().getId()).get();
+			if (m.getResult() != -9) {
+				switch (m.getResult()) {
+					case 1:
+						matchRepository.updatePoints(match.getHome().getId(),r.getTournament().getId(), -1.0);
+						break;
+						
+					case -1:
+						matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), -1.0);
+						break;
+						
+					case 0:
+						matchRepository.updatePoints(match.getHome().getId(), r.getTournament().getId(), -0.5);
+						matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), -0.5);
+						break;
+				}
+			}
+			matchRepository.updateMatchResult(matchId, match.getResult());
+			switch (match.getResult()) {
+				case 1:
+					matchRepository.updatePoints(match.getHome().getId(),r.getTournament().getId(), 1.0);
+					break;
+					
+				case -1:
+					matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), 1.0);
+					break;
+					
+				case 0:
+					matchRepository.updatePoints(match.getHome().getId(), r.getTournament().getId(), 0.5);
+					matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), 0.5);
+					break;
+			}
+			return 1;
+		}
+		return 0;
+	}
 //	
 //	public int updateMatchResults(List<Match> matches) {
 //		for (Match m : matches) {

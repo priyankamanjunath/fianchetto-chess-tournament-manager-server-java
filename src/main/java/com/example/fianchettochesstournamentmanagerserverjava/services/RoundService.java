@@ -18,9 +18,9 @@ public class RoundService {
 	@Autowired
 	TournamentRepository tournamentRepository;
 	
-	public Round createRound(Round r) {
-		return roundRepository.save(r);
-	}
+//	public Round createRound(Round r) {
+//		return roundRepository.save(r);
+//	}
 	
 	public List<Round> findAllRounds() {
 		return (List<Round>) roundRepository.findAll();

@@ -19,12 +19,10 @@ public class Match {
 	@OneToOne
 	private User home;
 	
-	private int homePoints;
-	
 	@OneToOne
 	private User away;
 	
-	private int awayPoints;
+	private int result = -9;
 	
 	@ManyToOne
 	private Round round;
@@ -33,12 +31,11 @@ public class Match {
 		
 	}
 
-	public Match(Integer id, User home, int homePoints, int awayPoints, User away, Round round) {
+	public Match(Integer id, User home, int result, User away, Round round) {
 		this.id = id;
 		this.home = home;
 		this.away = away;
-		this.homePoints = homePoints;
-		this.awayPoints = awayPoints;
+		this.result = result;
 		this.round = round;
 	}
 	
@@ -67,19 +64,11 @@ public class Match {
 		this.round = round;
 	}
 
-	public int getHomePoints() {
-		return homePoints;
+	public int getResult() {
+		return result;
 	}
 
-	public void setHomePoints(int homePoints) {
-		this.homePoints = homePoints;
-	}
-
-	public int getAwayPoints() {
-		return awayPoints;
-	}
-
-	public void setAwayPoints(int awayPoints) {
-		this.awayPoints = awayPoints;
+	public void setResult(int result) {
+		this.result = result;
 	}
 }
