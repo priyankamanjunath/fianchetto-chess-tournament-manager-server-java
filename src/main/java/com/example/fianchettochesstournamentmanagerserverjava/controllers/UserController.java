@@ -66,6 +66,26 @@ public class UserController {
 		return userService.deregisterFromTournamement(userId, tournamentId);
 	}
 	
+	@PutMapping("/api/tournament/{tournamentId}/register")
+	public int registerToTournament(HttpSession session
+			, @PathVariable ("tournamentId") Integer tournamentId) {
+		if (session.getAttribute("user") != null) {
+			User u = (User) session.getAttribute("user");
+			return userService.registerToTournament(u.getId(), tournamentId);
+		}
+		return 0;
+	}
+	
+	@DeleteMapping("/api/tournament/{tournamentId}/deregister")
+	public int deregisterFromTournamement(HttpSession session
+			, @PathVariable ("tournamentId") Integer tournamentId) {
+		if (session.getAttribute("user") != null) {
+			User u = (User) session.getAttribute("user");
+			return userService.deregisterFromTournamement(u.getId(), tournamentId);
+		}
+		return 0;
+	}
+	
 	@PostMapping("/api/users")
 	public User createUser(HttpSession session, @RequestBody User u) {
 		User user = userService.createUser(u);
