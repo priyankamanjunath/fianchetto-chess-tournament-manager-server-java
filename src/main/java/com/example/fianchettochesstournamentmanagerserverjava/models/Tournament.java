@@ -33,6 +33,7 @@ public class Tournament {
 	private boolean inProgress = true;
 	
 	@ManyToMany (mappedBy = "arbiterList")
+	@JsonIgnore
 	private List<User> arbiterList;
 	
 	@OneToOne
