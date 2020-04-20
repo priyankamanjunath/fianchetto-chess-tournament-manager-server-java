@@ -47,7 +47,7 @@ public class UserService {
 	}
 	
 	public User login(User u) {
-		return userRepository.findUserByEmail(u.getEmail(), u.getPassword());
+		return userRepository.loginUser(u.getEmail(), u.getPassword());
 	}
 	
 	public List<Tournament> findTournamentsForUser(Integer userId) {

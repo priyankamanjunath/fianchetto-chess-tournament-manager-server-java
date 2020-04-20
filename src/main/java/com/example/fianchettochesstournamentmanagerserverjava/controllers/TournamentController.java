@@ -1,5 +1,6 @@
 package com.example.fianchettochesstournamentmanagerserverjava.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,14 @@ public class TournamentController {
 	}
 	
 	@GetMapping("/api/tournament/{tournamentId}/users")
-	public List<User> findPlayersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
-		return tournamentService.findPlayersForTournament(tournamentId);
+	public String findPlayersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+		String result = "[";
+		
+		for (User u : tournamentService.findPlayersForTournament(tournamentId)) {
+			result += "{\"id\" : \"" + u.getId() + "\", \"seed\" : \"0\"},";
+		}
+		result = result.substring(0, result.length() - 1);
+		return result + "]";
 	}
 	
 	@PostMapping("/api/tournaments")

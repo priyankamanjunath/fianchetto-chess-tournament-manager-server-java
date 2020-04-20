@@ -10,6 +10,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
 	@Query(value = "SELECT * FROM users WHERE email = :email AND password = :password", 
 			nativeQuery = true)
-	public User findUserByEmail(@Param("email") String email, @Param("password") String password);
+	public User loginUser(@Param("email") String email, @Param("password") String password);
 	
 }

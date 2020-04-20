@@ -52,20 +52,20 @@ public class MatchService {
 		return matchRepository.findUserMatchesForTournament(userId, tournamentId);
 	}
 	
-	public int updateMatchResult(Integer matchId, Match match) {
-		if (matchId == match.getId()) {
-			matchRepository.updateMatchResult(matchId, match.getResult());
-			return 1;
-		}
-		return 0;
-	}
-	
-	public int updateMatchResults(List<Match> matches) {
-		for (Match m : matches) {
-			System.out.println(m.getId() + " " + m.getResult());
-			matchRepository.updateMatchResult(m.getId(), m.getResult());
-		}
-		return 1;
-	}
+//	public int updateMatchResult(Integer matchId, Match match) {
+//		if (matchId == match.getId()) {
+//			matchRepository.updateMatchResult(matchId, match.getResult());
+//			return 1;
+//		}
+//		return 0;
+//	}
+//	
+//	public int updateMatchResults(List<Match> matches) {
+//		for (Match m : matches) {
+//			System.out.println(m.getId() + " " + m.getResult());
+//			matchRepository.updateMatchResult(m.getId(), m.getResult());
+//		}
+//		return 1;
+//	}
 	
 }

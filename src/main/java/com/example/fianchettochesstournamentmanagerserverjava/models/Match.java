@@ -16,15 +16,15 @@ public class Match {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String name;
+	@OneToOne
+	private User home;
+	
+	private int homePoints;
 	
 	@OneToOne
-	private User player1;
+	private User away;
 	
-	@OneToOne
-	private User player2;
-	
-	private int result = -9;
+	private int awayPoints;
 	
 	@ManyToOne
 	private Round round;
@@ -33,13 +33,13 @@ public class Match {
 		
 	}
 
-	public Match(Integer id, User player1, User player2, int result, Round round, String name) {
+	public Match(Integer id, User home, int homePoints, int awayPoints, User away, Round round) {
 		this.id = id;
-		this.player1 = player1;
-		this.player2 = player2;
-		this.result = result;
+		this.home = home;
+		this.away = away;
+		this.homePoints = homePoints;
+		this.awayPoints = awayPoints;
 		this.round = round;
-		this.name = name;
 	}
 	
 	public Integer getId() {
@@ -48,23 +48,17 @@ public class Match {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public User getPlayer1() {
-		return player1;
+	public User getHome() {
+		return home;
 	}
-	public void setPlayer1(User player1) {
-		this.player1 = player1;
+	public void setHome(User home) {
+		this.home = home;
 	}
-	public User getPlayer2() {
-		return player2;
+	public User getAway() {
+		return away;
 	}
-	public void setPlayer2(User player2) {
-		this.player2 = player2;
-	}
-	public int getResult() {
-		return result;
-	}
-	public void setResult(int result) {
-		this.result = result;
+	public void setAway(User away) {
+		this.away = away;
 	}
 	public Round getRound() {
 		return round;
@@ -73,11 +67,19 @@ public class Match {
 		this.round = round;
 	}
 
-	public String getName() {
-		return name;
+	public int getHomePoints() {
+		return homePoints;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setHomePoints(int homePoints) {
+		this.homePoints = homePoints;
+	}
+
+	public int getAwayPoints() {
+		return awayPoints;
+	}
+
+	public void setAwayPoints(int awayPoints) {
+		this.awayPoints = awayPoints;
 	}
 }

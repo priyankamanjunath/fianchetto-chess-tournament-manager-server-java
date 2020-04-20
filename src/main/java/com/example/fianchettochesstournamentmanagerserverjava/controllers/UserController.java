@@ -2,6 +2,8 @@ package com.example.fianchettochesstournamentmanagerserverjava.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +19,7 @@ import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.services.UserService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000, https://fianchetto-client.herokuapp.com", allowCredentials = "true")
 public class UserController {
 	
 	@Autowired
@@ -33,9 +35,23 @@ public class UserController {
 		return userService.findTournamentsForUser(userId);
 	}
 	
+	@PostMapping("/api/logout")
+	public void logout(HttpSession session) {
+		session.invalidate();
+	}
+	
 	@PostMapping("/api/login")
-	public User login(@RequestBody User u) {
-		return userService.login(u);
+	public User login(HttpSession session, @RequestBody User u) {
+		User user = userService.login(u);
+		if (user != null) {
+			session.setAttribute("user", user);
+		}
+		return user;
+	}
+	
+	@PostMapping("/api/user")
+	public User getCurrentUser(HttpSession session) {
+		return (User) session.getAttribute("user");
 	}
 	
 	@PutMapping("/api/user/{userId}/tournament/{tournamentId}")
@@ -51,8 +67,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/api/users")
-	public User createUser(@RequestBody User u) {
-		return userService.createUser(u);
+	public User createUser(HttpSession session, @RequestBody User u) {
+		User user = userService.createUser(u);
+		if (user != null) {
+			session.setAttribute("user", user);
+		}
+		return user;
 	}
 	
 	@DeleteMapping("/api/user/{userId}")

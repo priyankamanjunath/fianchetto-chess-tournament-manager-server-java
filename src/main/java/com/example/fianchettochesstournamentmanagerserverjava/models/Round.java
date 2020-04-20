@@ -28,19 +28,14 @@ public class Round {
 	@JsonIgnore
 	private List<Match> matchList;
 	
-	@OneToMany
-	@JsonIgnore
-	private List<User> playerList;
-	
 	public Round() {
 		
 	}
 	
-	public Round(Integer id, Tournament tournament, List<Match> matchList, List<User> playerList) {
+	public Round(Integer id, Tournament tournament, List<Match> matchList) {
 		this.id = id;
 		this.tournament = tournament;
 		this.matchList = matchList;
-		this.playerList = playerList;
 	}
 	
 	public Integer getId() {
@@ -61,11 +56,4 @@ public class Round {
 	public void setMatchList(List<Match> matchList) {
 		this.matchList = matchList;
 	}
-	public List<User> getPlayerList() {
-		return playerList;
-	}
-	public void setPlayerList(List<User> playerList) {
-		this.playerList = playerList;
-	}
-
 }
