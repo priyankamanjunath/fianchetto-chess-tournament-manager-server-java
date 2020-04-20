@@ -59,6 +59,11 @@ public class UserController {
 		return userService.findUserPointsForTournament(userId, tournamentId);
 	}
 	
+	@GetMapping("/api/user/{userId}/tournamentsLeft")
+	public List<Tournament> findTournamentsLeftForUser(@PathVariable ("userId") Integer userId) {
+		return userService.findTournamentsLeftForUser(userId);
+	}
+	
 	@PutMapping("/api/user/{userId}/tournament/{tournamentId}")
 	public int registerToTournament(@PathVariable ("userId") Integer userId
 			, @PathVariable ("tournamentId") Integer tournamentId) {

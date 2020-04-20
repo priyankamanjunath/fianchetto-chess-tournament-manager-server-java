@@ -106,4 +106,16 @@ public class UserService {
 		return 0;
 	}
 
+	public List<Tournament> findTournamentsLeftForUser(Integer userId) {
+		User u = userRepository.findById(userId).get();
+		List<Tournament> left = new ArrayList<>();
+		List<Tournament> tournaments = findTournamentsForUser(userId);
+		for (Tournament t : tournamentRepository.findAll()) {
+			if (!tournaments.contains(t)) {
+				left.add(t);
+			}
+		}
+		return left;
+	}
+
 }

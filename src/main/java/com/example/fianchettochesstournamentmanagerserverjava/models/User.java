@@ -37,6 +37,7 @@ public class User {
         inverseJoinColumns=
             @JoinColumn(name="tournament_id", referencedColumnName="id")
         )
+	@JsonIgnore
 	private List<Tournament> arbiterList;
 	
 	@OneToMany (mappedBy = "player", cascade = CascadeType.ALL)
