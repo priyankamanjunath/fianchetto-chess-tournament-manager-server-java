@@ -102,6 +102,7 @@ public class MatchService {
 		for (Match m : matches) {
 			updateMatchResult(m.getId(), m);
 		}
+		
 		return 1;
 	}
 	
