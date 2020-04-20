@@ -61,36 +61,36 @@ public class MatchService {
 	public int updateMatchResult(Integer matchId, Match match) {
 		if (matchId == match.getId()) {
 			Match m = matchRepository.findById(matchId).get();
-			Round r = roundRepository.findById(match.getRound().getId()).get();
+			Round r = roundRepository.findById(m.getRound().getId()).get();
 			if (m.getResult() != -9) {
 				switch (m.getResult()) {
 					case 1:
-						matchRepository.updatePoints(match.getHome().getId(),r.getTournament().getId(), -1.0);
+						matchRepository.updatePoints(m.getHome().getId(),r.getTournament().getId(), -1.0);
 						break;
 						
 					case -1:
-						matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), -1.0);
+						matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), -1.0);
 						break;
 						
 					case 0:
-						matchRepository.updatePoints(match.getHome().getId(), r.getTournament().getId(), -0.5);
-						matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), -0.5);
+						matchRepository.updatePoints(m.getHome().getId(), r.getTournament().getId(), -0.5);
+						matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), -0.5);
 						break;
 				}
 			}
 			matchRepository.updateMatchResult(matchId, match.getResult());
 			switch (match.getResult()) {
 				case 1:
-					matchRepository.updatePoints(match.getHome().getId(),r.getTournament().getId(), 1.0);
+					matchRepository.updatePoints(m.getHome().getId(),r.getTournament().getId(), 1.0);
 					break;
 					
 				case -1:
-					matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), 1.0);
+					matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), 1.0);
 					break;
 					
 				case 0:
-					matchRepository.updatePoints(match.getHome().getId(), r.getTournament().getId(), 0.5);
-					matchRepository.updatePoints(match.getAway().getId(), r.getTournament().getId(), 0.5);
+					matchRepository.updatePoints(m.getHome().getId(), r.getTournament().getId(), 0.5);
+					matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), 0.5);
 					break;
 			}
 			return 1;
