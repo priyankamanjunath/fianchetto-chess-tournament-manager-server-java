@@ -16,11 +16,14 @@ public class Match {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne
+	@ManyToOne
 	private User home;
 	
-	@OneToOne
+	@ManyToOne
 	private User away;
+	
+	@ManyToOne
+	private User arbiter = null;
 	
 	private int result = -9;
 	
@@ -57,6 +60,14 @@ public class Match {
 	public void setAway(User away) {
 		this.away = away;
 	}
+	public User getArbiter() {
+		return arbiter;
+	}
+
+	public void setArbiter(User arbiter) {
+		this.arbiter = arbiter;
+	}
+
 	public Round getRound() {
 		return round;
 	}
