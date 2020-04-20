@@ -73,4 +73,13 @@ public class UserService {
 		return userRepository.findById(userId).get();
 	}
 
+	public Double findUserPointsForTournament(Integer userId, Integer tournamentId) {
+		for (UserTournament ut: userRepository.findById(userId).get().getTournamentList()) {
+			if (ut.getTournament().getId() == tournamentId) {
+				return ut.getPoints();
+			}
+		}
+		return 0.0;
+	}
+
 }

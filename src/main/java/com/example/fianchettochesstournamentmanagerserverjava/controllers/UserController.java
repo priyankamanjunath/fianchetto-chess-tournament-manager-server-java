@@ -54,6 +54,11 @@ public class UserController {
 //		return (User) session.getAttribute("user");
 //	}
 	
+	@GetMapping("/api/user/{userId}/tournament/{tournamentId}")
+	public Double findUserPointsForTournament(@PathVariable("userId") Integer userId, @PathVariable("tournamentId") Integer tournamentId) {
+		return userService.findUserPointsForTournament(userId, tournamentId);
+	}
+	
 	@PutMapping("/api/user/{userId}/tournament/{tournamentId}")
 	public int registerToTournament(@PathVariable ("userId") Integer userId
 			, @PathVariable ("tournamentId") Integer tournamentId) {

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
+import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.MatchRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.RoundRepository;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class MatchService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	TournamentRepository tournamentRepository;
 	
 	@Autowired
 	RoundRepository roundRepository;
@@ -104,6 +109,23 @@ public class MatchService {
 		}
 		
 		return 1;
+	}
+
+	public String findAllMatchesForTournament(Integer tournamentId) {
+		Tournament t = tournamentRepository.findById(tournamentId).get();
+		String result = "";
+		for (Round r : t.getRoundList()) {
+			for (Match m: r.getMatchList()) {
+				result += "{"
+						+ "\"round\": \"" + r.getId() + "\","
+						+ "\"home\": {\"id\": \"" + m.getHome().getId() + "\", \"points\": \"" +
+						matchRepository.getPoints(m.getHome().getId(), tournamentId) + "\"},"
+						+ "\"away\": {\"id\": \"" + m.getAway().getId() + "\", \"points\": \"" + 
+						matchRepository.getPoints(m.getAway().getId(), tournamentId) + "\"}"
+						+ "},";
+			}
+		}
+		return (!result.equals("")) ? result.substring(0, result.length() - 1) : "";
 	}
 	
 }

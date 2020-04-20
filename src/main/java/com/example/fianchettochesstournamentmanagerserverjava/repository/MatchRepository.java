@@ -38,4 +38,8 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
 	public void updatePoints(@Param ("userId") Integer integer
 			, @Param ("tournamentId") Integer tournamentId, @Param("points") Double points);
 
+	@Query (value = "SELECT points from user_tournament WHERE player_id = :playerId AND tournament_id = :tournamentId",
+			nativeQuery = true)
+	public Double getPoints(@Param ("playerId") Integer userId, @Param ("tournamentId") Integer tournamentId);
+
 }

@@ -34,8 +34,9 @@ public class Round {
 		
 	}
 	
-	public Round(Integer id, Tournament tournament, List<Match> matchList) {
+	public Round(Integer id, String name, Tournament tournament, List<Match> matchList) {
 		this.id = id;
+		this.name = name;
 		this.tournament = tournament;
 		this.matchList = matchList;
 	}

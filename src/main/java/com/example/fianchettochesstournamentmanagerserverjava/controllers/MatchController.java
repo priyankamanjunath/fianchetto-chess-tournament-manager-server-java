@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
+import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.services.MatchService;
 
 @RestController
@@ -55,6 +56,13 @@ public class MatchController {
 	@GetMapping("/api/user/{userId}/matches")
 	public List<Match> findMatchesForUser(@PathVariable ("userId") Integer userId) {
 		return matchService.findMatchesForUser(userId);
+	}
+	
+	@GetMapping("/api/tournament/{tournamentId}/matches")
+	public String findAllMatchesForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+		String result = "[";
+		result += matchService.findAllMatchesForTournament(tournamentId);
+		return result + "]";
 	}
 	
 	@GetMapping("/api/user/{userId}/tournament/{tournamentId}/matches") 
