@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +29,15 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private String password;
+	
+	@ManyToMany
+    @JoinTable(name="tournament_arbiters",
+        joinColumns=
+            @JoinColumn(name="arbiter_id", referencedColumnName="id"),
+        inverseJoinColumns=
+            @JoinColumn(name="tournament_id", referencedColumnName="id")
+        )
+	private List<Tournament> arbiterList;
 	
 	@OneToMany (mappedBy = "player", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -81,6 +93,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Tournament> getArbiterTournaments() {
+		return arbiterList;
+	}
+
+	public void setArbiterTouranments(List<Tournament> arbiterList) {
+		this.arbiterList = arbiterList;
 	}
 
 	public List<UserTournament> getTournamentList() {

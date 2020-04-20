@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
-import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.services.MatchService;
 
 @RestController

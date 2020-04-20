@@ -65,6 +65,18 @@ public class UserController {
 		return userService.registerToTournament(userId, tournamentId);
 	}
 	
+	@PutMapping("/api/user/{userId}/tournament/{tournamentId}/arbiter")
+	public int registerAsArbiter(@PathVariable ("userId") Integer userId
+			, @PathVariable ("tournamentId") Integer tournamentId) {
+		return userService.registerAsArbiter(userId, tournamentId);
+	}
+	
+	@DeleteMapping("/api/user/{userId}/tournament/{tournamentId}/arbiter")
+	public int deregisterAsArbiter(@PathVariable ("userId") Integer userId
+			, @PathVariable ("tournamentId") Integer tournamentId) {
+		return userService.deregisterAsArbiter(userId, tournamentId);
+	}
+	
 	@DeleteMapping("/api/user/{userId}/tournament/{tournamentId}")
 	public int deregisterFromTournamement(@PathVariable ("userId") Integer userId
 			, @PathVariable ("tournamentId") Integer tournamentId) {

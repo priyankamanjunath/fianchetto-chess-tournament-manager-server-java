@@ -11,16 +11,12 @@ import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.models.UserTournament;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
-import com.example.fianchettochesstournamentmanagerserverjava.repository.UserTournamentRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	UserRepository userRepository;
-	
-	@Autowired
-	UserTournamentRepository userTournamentRepository; 
 	
 	@Autowired
 	TournamentRepository tournamentRepository;
@@ -32,15 +28,18 @@ public class UserService {
 	public int registerToTournament(Integer userId, Integer tournamentId) {
 		User u = userRepository.findById(userId).get();
 		Tournament t = tournamentRepository.findById(tournamentId).get();
+		for (Tournament tour : u.getArbiterTournaments()) {
+			if (tour.getId() == tournamentId) {
+				return 0;
+			}
+		}
 		u.getTournamentList().add(new UserTournament(u, t));
 		User user = userRepository.save(u);
-		return (user != null) ? 1 : 0; 		
+		return (user != null) ? 1 : 0;
 	}
 	
 	public int deregisterFromTournamement(Integer userId, Integer tournamentId) {
-		User u = userRepository.findById(userId).get();
-		Tournament t = tournamentRepository.findById(tournamentId).get();
-		return userRepository.deregister(u.getId(), t.getId());
+		return userRepository.deregister(userId, tournamentId);
 	}
 	
 	public User login(User u) {
@@ -80,6 +79,31 @@ public class UserService {
 			}
 		}
 		return 0.0;
+	}
+
+	public int registerAsArbiter(Integer userId, Integer tournamentId) {
+		User u = userRepository.findById(userId).get();
+		Tournament t = tournamentRepository.findById(tournamentId).get();
+		for (UserTournament ut: u.getTournamentList()) {
+			if (ut.getTournament().getId() == tournamentId) {
+				return 0;
+			}
+		}
+		u.getArbiterTournaments().add(t);
+		User user = userRepository.save(u);
+		return (user != null) ? 1 : 0;
+	}
+	
+	public int deregisterAsArbiter(Integer userId, Integer tournamentId) {
+		User u = userRepository.findById(userId).get();
+		for (Tournament tour : u.getArbiterTournaments()) {
+			if (tour.getId() == tournamentId) {
+				u.getArbiterTournaments().remove(tour);
+				userRepository.save(u);
+				return 1;
+			}
+		}
+		return 0;
 	}
 
 }

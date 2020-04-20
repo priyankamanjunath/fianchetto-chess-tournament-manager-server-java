@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,6 +31,9 @@ public class Tournament {
 	private Date endDate = new Date();
 	private String description = null;
 	private boolean inProgress = true;
+	
+	@ManyToMany (mappedBy = "arbiterList")
+	private List<User> arbiterList;
 	
 	@OneToOne
 	private User winner;
@@ -137,6 +143,14 @@ public class Tournament {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<User> getArbiterList() {
+		return arbiterList;
+	}
+
+	public void setArbiterList(List<User> arbiterList) {
+		this.arbiterList = arbiterList;
 	}
 
 }

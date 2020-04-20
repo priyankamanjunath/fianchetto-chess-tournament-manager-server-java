@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
-import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 
 public interface MatchRepository extends CrudRepository<Match, Integer> {
 	
