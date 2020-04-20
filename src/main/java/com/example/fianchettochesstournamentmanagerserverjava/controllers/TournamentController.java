@@ -38,6 +38,11 @@ public class TournamentController {
 		return result + "]";
 	}
 	
+	@GetMapping("/api/tournament/{tournamentId}/arbiters")
+	public List<User> findAllArbiter(@PathVariable("tournamentId") Integer tournamentId) {
+		return tournamentService.findAllArbiter(tournamentId);
+	}
+	
 	@PostMapping("/api/tournaments")
 	public Tournament createTournament(@RequestBody Tournament t) {
 		return tournamentService.createTournament(t);

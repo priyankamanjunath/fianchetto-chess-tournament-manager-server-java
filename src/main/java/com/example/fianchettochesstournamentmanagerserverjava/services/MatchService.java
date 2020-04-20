@@ -114,10 +114,12 @@ public class MatchService {
 	public String findAllMatchesForTournament(Integer tournamentId) {
 		Tournament t = tournamentRepository.findById(tournamentId).get();
 		String result = "";
+		int round = 0;
 		for (Round r : t.getRoundList()) {
+			round++;
 			for (Match m: r.getMatchList()) {
 				result += "{"
-						+ "\"round\": \"" + r.getId() + "\","
+						+ "\"round\": \"" + round + "\","
 						+ "\"home\": {\"id\": \"" + m.getHome().getId() + "\", \"points\": \"" +
 						matchRepository.getPoints(m.getHome().getId(), tournamentId) + "\"},"
 						+ "\"away\": {\"id\": \"" + m.getAway().getId() + "\", \"points\": \"" + 
