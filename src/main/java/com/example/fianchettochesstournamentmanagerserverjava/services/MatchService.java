@@ -52,7 +52,9 @@ public class MatchService {
 		if (m.size() == 0) {
 			return 0;
 		}
+		Tournament t = roundRepository.findById(roundId).get().getTournament();
 		for (Match match : m) {
+			match.setArbiter(t.getMaster());
 			match.setRound(roundRepository.findById(roundId).get());
 			match.setHome(userRepository.findById(match.getHome().getId()).get());
 			match.setAway(userRepository.findById(match.getAway().getId()).get());

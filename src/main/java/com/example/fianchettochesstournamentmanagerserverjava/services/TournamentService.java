@@ -10,6 +10,7 @@ import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
 import com.example.fianchettochesstournamentmanagerserverjava.models.UserTournament;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
+import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 
 @Service
 public class TournamentService {
@@ -17,19 +18,18 @@ public class TournamentService {
 	@Autowired
 	TournamentRepository tournamentRepository;
 	
-//	@Autowired
-//	UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 	
-	public Tournament createTournament(Tournament t) {
-		return tournamentRepository.save(t);
-	}
-	
-//	public Tournament createTournament(Integer userId, Tournament t) {
-//		User u = userRepository.findById(userId).get();
-//		u.setTournamentList(u.getTournamentList().add(t));
-//		userRepository.save(u);
+//	public Tournament createTournament(Tournament t) {
 //		return tournamentRepository.save(t);
 //	}
+	
+	public Tournament createTournament(Integer userId, Tournament t) {
+		User u = userRepository.findById(userId).get();
+		t.setMaster(u);
+		return tournamentRepository.save(t);
+	}
 	
 	public List<User> findPlayersForTournament(Integer tournamentId) {
 		List<User> users = new ArrayList<>();

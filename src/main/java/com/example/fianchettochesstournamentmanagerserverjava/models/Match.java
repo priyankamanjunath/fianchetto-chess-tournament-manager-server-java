@@ -23,7 +23,7 @@ public class Match {
 	private User away;
 	
 	@ManyToOne
-	private User arbiter = null;
+	private User arbiter;
 	
 	private int result = -9;
 	
