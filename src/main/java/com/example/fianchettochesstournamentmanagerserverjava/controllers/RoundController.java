@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Round;
@@ -32,8 +31,8 @@ public class RoundController {
 //	}
 	
 	@PostMapping("/api/tournament/{tournamentId}/rounds")
-	public Round createRound(@RequestBody Round r, @PathVariable ("tournamentId") Integer tournamentId) {
-		return roundService.createRound(r, tournamentId);
+	public Round createRound(@PathVariable ("tournamentId") Integer tournamentId) {
+		return roundService.createRound(tournamentId);
 	}
 	
 	@GetMapping("/api/round/{roundId}")

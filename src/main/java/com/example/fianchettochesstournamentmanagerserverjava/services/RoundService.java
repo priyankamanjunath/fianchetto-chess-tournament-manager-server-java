@@ -34,7 +34,8 @@ public class RoundService {
 		return roundRepository.findRoundsForTournament(tournamentId);
 	}
 
-	public Round createRound(Round r, Integer tournamentId) {
+	public Round createRound(Integer tournamentId) {
+		Round r = new Round();
 		int rounds = tournamentRepository.findById(tournamentId).get().getRoundList().size();
 		r.setName("Round " + ++rounds);
 		r.setTournament(tournamentRepository.findById(tournamentId).get());
