@@ -62,6 +62,11 @@ public class UserService {
 		for (UserTournament ut : u.getTournamentList()) {
 			tournaments.add(ut.getTournament());
 		}
+		for (Tournament t : tournamentRepository.findAll()) {
+			if (t.getMaster().getId() == userId) {
+				tournaments.add(t);
+			}
+		}
 		return tournaments;
 	}
  	
