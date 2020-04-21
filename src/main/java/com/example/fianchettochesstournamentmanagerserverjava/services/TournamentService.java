@@ -50,8 +50,4 @@ public class TournamentService {
 	public Tournament findTournamentById(Integer tournamentId) {
 		return tournamentRepository.findById(tournamentId).get();
 	}
-
-	public List<User> findAllArbiter(Integer tournamentId) {
-		return tournamentRepository.findById(tournamentId).get().getArbiterList();
-	}
 }

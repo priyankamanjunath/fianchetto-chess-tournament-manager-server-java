@@ -52,9 +52,7 @@ public class MatchService {
 		if (m.size() == 0) {
 			return 0;
 		}
-		Tournament t = roundRepository.findById(roundId).get().getTournament();
 		for (Match match : m) {
-			match.setArbiter(t.getMaster());
 			match.setRound(roundRepository.findById(roundId).get());
 			match.setHome(userRepository.findById(match.getHome().getId()).get());
 			match.setAway(userRepository.findById(match.getAway().getId()).get());
@@ -75,41 +73,36 @@ public class MatchService {
 		if (matchId == match.getId()) {
 			Match m = matchRepository.findById(matchId).get();
 			Round r = roundRepository.findById(m.getRound().getId()).get();
-			if (m.getResult() != match.getResult()) {
-				if (m.getResult() != -9) {
-					switch (m.getResult()) {
-						case 1:
-							matchRepository.updatePoints(m.getHome().getId(),r.getTournament().getId(), -1.0);
-							break;
-							
-						case -1:
-							matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), -1.0);
-							break;
-							
-						case 0:
-							matchRepository.updatePoints(m.getHome().getId(), r.getTournament().getId(), -0.5);
-							matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), -0.5);
-							break;
-					}
-				}
-				matchRepository.updateMatchResult(matchId, match.getResult());
-				switch (match.getResult()) {
-				case 1:
-					matchRepository.updatePoints(m.getHome().getId(),r.getTournament().getId(), 1.0);
-					break;
-					
-				case -1:
-					matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), 1.0);
-					break;
-					
-				case 0:
-					matchRepository.updatePoints(m.getHome().getId(), r.getTournament().getId(), 0.5);
-					matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), 0.5);
-					break;
+			if (m.getResult() != -9) {
+				switch (m.getResult()) {
+					case 1:
+						matchRepository.updatePoints(m.getHome().getId(),r.getTournament().getId(), -1.0);
+						break;
+						
+					case -1:
+						matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), -1.0);
+						break;
+						
+					case 0:
+						matchRepository.updatePoints(m.getHome().getId(), r.getTournament().getId(), -0.5);
+						matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), -0.5);
+						break;
 				}
 			}
-			if (m.getArbiter().getId() != match.getArbiter().getId()) {
-				matchRepository.updateMatchArbiter(matchId, match.getArbiter().getId());
+			matchRepository.updateMatchResult(matchId, match.getResult());
+			switch (match.getResult()) {
+			case 1:
+				matchRepository.updatePoints(m.getHome().getId(),r.getTournament().getId(), 1.0);
+				break;
+				
+			case -1:
+				matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), 1.0);
+				break;
+				
+			case 0:
+				matchRepository.updatePoints(m.getHome().getId(), r.getTournament().getId(), 0.5);
+				matchRepository.updatePoints(m.getAway().getId(), r.getTournament().getId(), 0.5);
+				break;
 			}
 			return 1;
 		}

@@ -18,4 +18,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Modifying(clearAutomatically = true)
 	@Query(value = "DELETE FROM user_tournament WHERE player_id = :playerId AND tournament_id = :tournamentId", nativeQuery = true)
 	public int deregister(@Param ("playerId") Integer userId, @Param ("tournamentId") Integer tournamentId);
+
+	@Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
+	public User findByEmail(@Param ("email") String email);
 }

@@ -18,10 +18,6 @@ public class RoundService {
 	@Autowired
 	TournamentRepository tournamentRepository;
 	
-//	public Round createRound(Round r) {
-//		return roundRepository.save(r);
-//	}
-	
 	public List<Round> findAllRounds() {
 		return (List<Round>) roundRepository.findAll();
 	}
@@ -39,6 +35,8 @@ public class RoundService {
 	}
 
 	public Round createRound(Round r, Integer tournamentId) {
+		int rounds = tournamentRepository.findById(tournamentId).get().getRoundList().size();
+		r.setName("Round " + ++rounds);
 		r.setTournament(tournamentRepository.findById(tournamentId).get());
 		return roundRepository.save(r);
 	}

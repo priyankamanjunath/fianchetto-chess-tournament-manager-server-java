@@ -27,9 +27,15 @@ public class UserService {
 	
 	public int registerToTournament(Integer userId, Integer tournamentId) {
 		User u = userRepository.findById(userId).get();
+		if (u == null) {
+			return 0;
+		}
 		Tournament t = tournamentRepository.findById(tournamentId).get();
-		for (Tournament tour : u.getArbiterTournaments()) {
-			if (tour.getId() == tournamentId) {
+		if (t.getMaster().getId() == userId) {
+			return 0;
+		}
+		for (UserTournament ut : u.getTournamentList()) {
+			if (ut.getTournament().getId() == tournamentId) {
 				return 0;
 			}
 		}
@@ -43,7 +49,11 @@ public class UserService {
 	}
 	
 	public User login(User u) {
-		return userRepository.loginUser(u.getEmail(), u.getPassword());
+		User user = userRepository.loginUser(u.getEmail(), u.getPassword());
+		if (user == null) {
+			return new User(-1,"", "", "");
+		}
+		return user;
 	}
 	
 	public List<Tournament> findTournamentsForUser(Integer userId) {
@@ -56,12 +66,11 @@ public class UserService {
 	}
  	
 	public User createUser(User u) {
-		for (User user : userRepository.findAll()) {
-			if (u.getEmail().equals(user.getEmail())) {
-				return null;
-			}
+		User user = userRepository.findByEmail(u.getEmail());
+		if (user == null) {
+			return userRepository.save(u);
 		}
-		return userRepository.save(u);
+		return new User(-1,"", "", "");
 	}
 	
 	public void deleteUser(Integer userId) {
@@ -80,38 +89,12 @@ public class UserService {
 		}
 		return 0.0;
 	}
-
-	public int registerAsArbiter(Integer userId, Integer tournamentId) {
-		User u = userRepository.findById(userId).get();
-		Tournament t = tournamentRepository.findById(tournamentId).get();
-		for (UserTournament ut: u.getTournamentList()) {
-			if (ut.getTournament().getId() == tournamentId) {
-				return 0;
-			}
-		}
-		u.getArbiterTournaments().add(t);
-		User user = userRepository.save(u);
-		return (user != null) ? 1 : 0;
-	}
 	
-	public int deregisterAsArbiter(Integer userId, Integer tournamentId) {
-		User u = userRepository.findById(userId).get();
-		for (Tournament tour : u.getArbiterTournaments()) {
-			if (tour.getId() == tournamentId) {
-				u.getArbiterTournaments().remove(tour);
-				userRepository.save(u);
-				return 1;
-			}
-		}
-		return 0;
-	}
-
 	public List<Tournament> findTournamentsLeftForUser(Integer userId) {
-		User u = userRepository.findById(userId).get();
 		List<Tournament> left = new ArrayList<>();
 		List<Tournament> tournaments = findTournamentsForUser(userId);
 		for (Tournament t : tournamentRepository.findAll()) {
-			if (!tournaments.contains(t)) {
+			if (!tournaments.contains(t) && t.getMaster().getId() != userId) {
 				left.add(t);
 			}
 		}

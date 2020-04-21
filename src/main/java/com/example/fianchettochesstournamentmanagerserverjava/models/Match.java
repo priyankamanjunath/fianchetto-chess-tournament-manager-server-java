@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -21,9 +20,6 @@ public class Match {
 	
 	@ManyToOne
 	private User away;
-	
-	@ManyToOne
-	private User arbiter;
 	
 	private int result = -9;
 	
@@ -60,14 +56,6 @@ public class Match {
 	public void setAway(User away) {
 		this.away = away;
 	}
-	public User getArbiter() {
-		return arbiter;
-	}
-
-	public void setArbiter(User arbiter) {
-		this.arbiter = arbiter;
-	}
-
 	public Round getRound() {
 		return round;
 	}
