@@ -1,5 +1,6 @@
 package com.example.fianchettochesstournamentmanagerserverjava.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fianchettochesstournamentmanagerserverjava.models.Tournament;
 import com.example.fianchettochesstournamentmanagerserverjava.models.User;
+import com.example.fianchettochesstournamentmanagerserverjava.models.UserTournament;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.TournamentRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.services.TournamentService;
@@ -35,8 +37,18 @@ public class TournamentController {
 		return tournamentService.findTournamentById(tournamentId);
 	}
 	
+	@GetMapping("/api/tournament/{tournamentId}/players")
+	public List<User> findPlayersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+		Tournament t = tournamentRepository.findById(tournamentId).get();
+		List<User> players = new ArrayList<>();
+		for (UserTournament ut: t.getPlayerList()) {
+			players.add(ut.getPlayer());
+		}
+		return players;
+	}
+	
 	@GetMapping("/api/tournament/{tournamentId}/users")
-	public String findPlayersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
+	public String findUsersForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
 		String result = "[";
 		
 		for (User u : tournamentService.findPlayersForTournament(tournamentId)) {
