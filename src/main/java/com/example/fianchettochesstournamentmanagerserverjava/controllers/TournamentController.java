@@ -34,7 +34,9 @@ public class TournamentController {
 		for (User u : tournamentService.findPlayersForTournament(tournamentId)) {
 			result += "{\"id\" : \"" + u.getId() + "\", \"seed\" : \"0\"},";
 		}
-		result = result.substring(0, result.length() - 1);
+		if (!result.equals("[")) {
+			result = result.substring(0, result.length() - 1);
+		}
 		return result + "]";
 	}
 	
