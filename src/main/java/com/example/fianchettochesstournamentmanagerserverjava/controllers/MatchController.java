@@ -33,7 +33,7 @@ public class MatchController {
 	}
 	
 	@PostMapping("/api/round/{roundId}/matches")
-	public Match createMatch(@RequestBody Match m, @PathVariable ("roundId") Integer roundId) {
+	public int createMatch(@RequestBody List<Match> m, @PathVariable ("roundId") Integer roundId) {
 		return matchService.createMatch(m, roundId);
 	}
 	

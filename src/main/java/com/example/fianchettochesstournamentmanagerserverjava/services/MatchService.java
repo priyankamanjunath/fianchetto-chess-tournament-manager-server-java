@@ -48,11 +48,17 @@ public class MatchService {
 		return matchRepository.findMatchesForRound(roundId);
 	}
 
-	public Match createMatch(Match m, Integer roundId) {
-		m.setRound(roundRepository.findById(roundId).get());
-		m.setHome(userRepository.findById(m.getHome().getId()).get());
-		m.setAway(userRepository.findById(m.getAway().getId()).get());
-		return matchRepository.save(m);
+	public int createMatch(List<Match> m, Integer roundId) {
+		if (m.size() == 0) {
+			return 0;
+		}
+		for (Match match : m) {
+			match.setRound(roundRepository.findById(roundId).get());
+			match.setHome(userRepository.findById(match.getHome().getId()).get());
+			match.setAway(userRepository.findById(match.getAway().getId()).get());
+			matchRepository.save(match);
+		}
+		return 1;
 	}
 	
 	public List<Match> findMatchesForUser(Integer userId) {
@@ -100,7 +106,7 @@ public class MatchService {
 					break;
 				}
 			}
-			if (m.getArbiter() != match.getArbiter()) {
+			if (m.getArbiter().getId() != match.getArbiter().getId()) {
 				matchRepository.updateMatchArbiter(matchId, match.getArbiter().getId());
 			}
 			return 1;
