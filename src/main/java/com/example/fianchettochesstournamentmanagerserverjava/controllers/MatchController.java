@@ -1,6 +1,9 @@
 package com.example.fianchettochesstournamentmanagerserverjava.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.fianchettochesstournamentmanagerserverjava.models.Match;
 import com.example.fianchettochesstournamentmanagerserverjava.services.MatchService;
 
+/**
+ * The commented APIs can be used for implementing session.
+ * @author fenilshah
+ *
+ */
 @RestController
 @CrossOrigin(origins = "*")
 public class MatchController {
@@ -57,6 +65,15 @@ public class MatchController {
 		return matchService.findMatchesForUser(userId);
 	}
 	
+//	@GetMapping("/api/matches")
+//	public List<Match> findMatchesForUser(HttpSession session) {
+//		if (session.getAttribute("user") != null) {
+//			int id = ((User) session.getAttribute("user")).getId();
+//			return matchService.findMatchesForUser(id);
+//		}
+//		return new ArrayList<>();
+//	}
+	
 	@GetMapping("/api/tournament/{tournamentId}/matches")
 	public String findAllMatchesForTournament(@PathVariable ("tournamentId") Integer tournamentId) {
 		String result = "[";
@@ -69,6 +86,15 @@ public class MatchController {
 			@PathVariable("tournamentId") Integer tournamentId) {
 		return matchService.findUserMatchesForTournament(userId, tournamentId);
 	}
+	
+//	@GetMapping("/api/user/tournament/{tournamentId}/matches")
+//	public List<Match> findUserMatchesForTournament(HttpSession session, @PathVariable ("tournamentId") Integer tournamentId) {
+//		if (session.getAttribute("user") != null) {
+//			int id = ((User) session.getAttribute("user")).getId();
+//			return matchService.findUserMatchesForTournament(id, tournamentId);
+//		}
+//		return new ArrayList<>();
+//	}
 	
 	@PutMapping("/api/match/{matchId}")
 	public int updateMatchResult(@PathVariable ("matchId") Integer matchId, @RequestBody Match match) {

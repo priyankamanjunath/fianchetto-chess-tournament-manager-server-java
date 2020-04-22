@@ -25,11 +25,6 @@ public class RoundController {
 		return roundService.findAllRounds();
 	}
 	
-//	@PostMapping("/api/rounds")
-//	public Round createRound(@RequestBody Round r) {
-//		return roundService.createRound(r);
-//	}
-	
 	@PostMapping("/api/tournament/{tournamentId}/rounds")
 	public Round createRound(@PathVariable ("tournamentId") Integer tournamentId) {
 		return roundService.createRound(tournamentId);

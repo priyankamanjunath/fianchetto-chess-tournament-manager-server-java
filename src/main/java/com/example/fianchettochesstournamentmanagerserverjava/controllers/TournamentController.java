@@ -3,6 +3,8 @@ package com.example.fianchettochesstournamentmanagerserverjava.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +21,11 @@ import com.example.fianchettochesstournamentmanagerserverjava.repository.Tournam
 import com.example.fianchettochesstournamentmanagerserverjava.repository.UserRepository;
 import com.example.fianchettochesstournamentmanagerserverjava.services.TournamentService;
 
+/**
+ * The commented APIs can be used for implementing session.
+ * @author fenilshah
+ *
+ */
 @RestController
 @CrossOrigin(origins = "*")
 public class TournamentController {
@@ -61,8 +68,14 @@ public class TournamentController {
 	}
 	
 //	@PostMapping("/api/tournaments")
-//	public Tournament createTournament(@RequestBody Tournament t) {
-//		return tournamentService.createTournament(t);
+//	public Tournament createTournament(HttpSession session, @RequestBody Tournament t) {
+//		if (session.getAttribute("user") != null) {
+//			int id = ((User) session.getAttribute("user")).getId();
+//			return tournamentService.createTournament(id, t);
+//		}
+//		Tournament tour = new Tournament();
+//		tour.setId(-1);
+//		return tour;
 //	}
 	
 	@PostMapping("/api/user/{userId}/tournaments")
