@@ -21,4 +21,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
 	@Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
 	public User findByEmail(@Param ("email") String email);
+
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query(value = "UPDATE users SET name = :name, password = :password WHERE id = :id", nativeQuery = true)
+	public int updateInfo(@Param ("id") Integer id, @Param ("name") String name, @Param ("password") String password);
 }

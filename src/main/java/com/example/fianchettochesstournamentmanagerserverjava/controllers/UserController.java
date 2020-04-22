@@ -49,6 +49,11 @@ public class UserController {
 		return user;
 	}
 	
+	@PutMapping("/api/user/{userId}")
+	public User updateInfo(@PathVariable("userId") Integer id ,@RequestBody User u) {
+		return userService.updateInfo(id, u);
+	}
+	
 //	@PostMapping("/api/user")
 //	public User getCurrentUser(HttpSession session) {
 //		return (User) session.getAttribute("user");

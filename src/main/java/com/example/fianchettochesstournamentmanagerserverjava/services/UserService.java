@@ -106,4 +106,13 @@ public class UserService {
 		return left;
 	}
 
+	public User updateInfo(Integer id, User u) {
+		if (userRepository.updateInfo(id, u.getName(), u.getPassword()) == 1) {
+			return u;
+		}
+		User user = new User();
+		user.setId(-1);
+		return user;
+	}
+
 }
