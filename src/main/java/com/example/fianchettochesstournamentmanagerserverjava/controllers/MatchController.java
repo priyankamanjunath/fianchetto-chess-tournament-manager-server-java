@@ -65,6 +65,7 @@ public class MatchController {
 		return matchService.findMatchesForUser(userId);
 	}
 	
+	
 //	@GetMapping("/api/matches")
 //	public List<Match> findMatchesForUser(HttpSession session) {
 //		if (session.getAttribute("user") != null) {
